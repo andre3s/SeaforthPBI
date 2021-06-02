@@ -7,7 +7,21 @@ from colorama import Fore
 def clean_production_data():
     # Utility
     file_location = "C:\\Projects\\SeaforthPBI\\DataFiles\\"
-    files = os.listdir(file_location)
+
+    try:
+        files = os.listdir(file_location)
+        number_files = len(files)
+        if number_files > 0:
+            message_success_read = f'Successfully read {number_files} from {file_location}. Continuing...'
+            print(Fore.GREEN, message_success_read)
+        else:
+            message_empty_folder = f'Folder {file_location} seems to be empty. Please check.'
+            print(Fore.RED, message_empty_folder)
+    except Exception as e:
+        message_fail_read = f'Failed to read files from {file_location}. Please check.'
+        print(Fore.RED, message_fail_read)
+        raise e
+
     file_month, file_year = create_time()
     j = 0
 
