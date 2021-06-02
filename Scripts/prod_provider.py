@@ -38,14 +38,20 @@ def clean_production_data():
                 else:
                     tmp_Year = int(df_current_month.iloc[i, 12][7:11])
                 tmp_MonthYear = tmp_Month + ' ' + str(tmp_Year)
+
                 if tmp_Year == int(file_year) and tmp_Month in ['Jan', 'Feb', 'Mar', 'Apr', 'May']:
                     tmp_FiscalYear = str(int(file_year) - 1) + '-' + str(file_year)
-                elif tmp_Year < int(file_year) and tmp_Month in ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']:
-                    tmp_FiscalYear = str(int(file_year) - 1) + '-' + file_year
+                elif (int(file_year) - tmp_Year) == 1 and tmp_Month in ['Jan', 'Feb', 'Mar', 'Apr', 'May']:
+                    tmp_FiscalYear = str(tmp_Year - 1) + '-' + str(tmp_Year)
+                elif (int(file_year) - tmp_Year) == 1 and tmp_Month in ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']:
+                    tmp_FiscalYear = str(tmp_Year) + '-' + str(file_year)
+                elif (int(file_year) - tmp_Year) == 2 and tmp_Month in ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']:
+                    tmp_FiscalYear = str(int(file_year) - 2) + '-' + str(int(file_year) - 1)
                 elif tmp_Year == int(file_year) and tmp_Month in ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']:
-                    tmp_FiscalYear = str(file_year) + '-' + str(int(file_year) + 1)
+                    tmp_FiscalYear = str(int(file_year)) + '-' + str(int(file_year) + 1)
                 else:
                     tmp_FiscalYear = None
+
                 tmp_Patient = df_current_month.iloc[i, 15]
                 if (df_current_month.iloc[i, 16] == 'Dr Wallerstein Connie'
                         or df_current_month.iloc[i, 16] == 'Dr Hamilton, Douglas'
