@@ -1,8 +1,9 @@
 from Scripts.prod_provider import clean_production_data
+from colorama import Fore
 
 
 def main():
-    print('Hi, I will start to clean your data files. Please wait.')
+    print(Fore.GREEN, 'Hi, I will start to clean your data files. Please wait.')
     clean_production_data()
 
 
